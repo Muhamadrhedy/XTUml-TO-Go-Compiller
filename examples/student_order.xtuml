@@ -1,0 +1,27 @@
+@startuml
+package demo
+
+class Student {
+    +name: String
+    +nim: String
+    -age: Integer
+    +IsAdult(): Boolean
+    +ChangeName(newName: String): String
+}
+
+class Order {
+    +id: String
+    +total: Float
+}
+
+association Student orders Order many
+
+state_machine OrderLifecycle for Order {
+    initial Pending
+    state Pending
+    state Paid
+    state Cancelled
+    transition Pending on Pay -> Paid action MarkPaid
+    transition Pending on Cancel -> Cancelled
+}
+@enduml
